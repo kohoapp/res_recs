@@ -6,7 +6,6 @@ Created on Sat Aug 19 19:13:22 2023
 @author: davidooooo
 """
 #%%
-from flask import Flask, render_template, request, url_for, redirect, Response
 import os
 import openai
 #%%
@@ -72,21 +71,4 @@ def getRecs(likes="",dislikes="", restaurant="", menu=""):
     return rec
 #%%
 a = getRecs("chicken", "beer", "chipotle", "burritos, tacos")
-#%%
-@app.route("/", methods=("GET", "POST"))
-def index():
-    if request.method == "POST":
-        likes = request.form.get("likes")
-        dislikes = request.form.get("dislikes")
-        restaurant = request.form.get("restaurant")
-        menu = request.form.get("menu")
 
-        recommendation = getRecs(likes, dislikes, restaurant, menu)
-        return "hello!!"
-        #return Response(redirect(url_for("recommendation_page", recommendation=recommendation)), content_type="text/html")
-    
-    return Response(render_template("index.html", recommendation=None), content_type="text/html")
-    #return("Hello world")
-
-if __name__ == "__main__":
-    app.run(debug=True, port=8002)
